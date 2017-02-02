@@ -69,6 +69,12 @@ var checklistitem = [ChecklistItem]()
     func toggleChecked (number: Int){
         checklistitem[number].checked = !checklistitem[number].checked
     }
+    @IBAction func addDummyTodo(_ sender: AnyObject) {
+        checklistitem.append(ChecklistItem(text: "Dummy Dummy", checked: false))
+        tableView.insertRows(at: [IndexPath(item: checklistitem.count-1, section: 0)], with: UITableViewRowAnimation.automatic)
+    }
+    
+    
 
 }
 
