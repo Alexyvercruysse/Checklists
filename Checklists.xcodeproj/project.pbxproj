@@ -13,6 +13,7 @@
 		B8AEE9871E431D1000664471 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8AEE9861E431D1000664471 /* Assets.xcassets */; };
 		B8AEE98A1E431D1000664471 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8AEE9881E431D1000664471 /* LaunchScreen.storyboard */; };
 		B8F330611E4326E50056BBFC /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F330601E4326E50056BBFC /* ChecklistItem.swift */; };
+		B8F330651E434A210056BBFC /* AddItemViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F330641E434A210056BBFC /* AddItemViewControllerTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B8AEE9891E431D1000664471 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8AEE98B1E431D1000664471 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B8F330601E4326E50056BBFC /* ChecklistItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
+		B8F330641E434A210056BBFC /* AddItemViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewControllerTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				B8AEE9881E431D1000664471 /* LaunchScreen.storyboard */,
 				B8AEE98B1E431D1000664471 /* Info.plist */,
 				B8F330601E4326E50056BBFC /* ChecklistItem.swift */,
+				B8F330641E434A210056BBFC /* AddItemViewControllerTableViewController.swift */,
 			);
 			path = Checklists;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 				B8AEE9821E431D1000664471 /* ChecklistViewController.swift in Sources */,
 				B8F330611E4326E50056BBFC /* ChecklistItem.swift in Sources */,
 				B8AEE9801E431D1000664471 /* AppDelegate.swift in Sources */,
+				B8F330651E434A210056BBFC /* AddItemViewControllerTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

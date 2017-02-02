@@ -53,6 +53,23 @@ var checklistitem = [ChecklistItem]()
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (checklistitem[indexPath.row].checked == true){
+            let alert = UIAlertController(title: "Not Finish", message: "This task is not finish, would you delete it anyway ?", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.destructive, handler: { action in
+                self.checklistitem.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else {
+            self.checklistitem.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+        }
+        
+    }
+    
     func configureCheckmarkFor(cell: UITableViewCell, withItem item: ChecklistItem){
         if item.checked {
             cell.accessoryType = UITableViewCellAccessoryType.none
