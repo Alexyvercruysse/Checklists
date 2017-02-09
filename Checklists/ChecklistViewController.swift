@@ -86,13 +86,13 @@ class ChecklistViewController: UITableViewController {
         print(segue.identifier)
         if segue.identifier == "AddItem",
             let destination = segue.destination as? UINavigationController,
-            let vc = destination.topViewController as? AddItemViewController
+            let vc = destination.topViewController as? ItemDetailViewController
         {
             vc.delegate = self
         }
         else if segue.identifier == "EditItem",
             let destination = segue.destination as? UINavigationController,
-            let vc = destination.topViewController as? AddItemViewController
+            let vc = destination.topViewController as? ItemDetailViewController
         {
             vc.delegate = self
             vc.itemToEdit = checklistitem[(tableView.indexPath(for: (sender as! UITableViewCell))?.row)!]
@@ -103,16 +103,16 @@ class ChecklistViewController: UITableViewController {
 
 // MARK: -
 // MARK: Add Item View Controller Delegate
-extension ChecklistViewController: AddItemViewControllerDelegate {
-    func addItemViewControllerDidCancel(controller: AddItemViewController) {
+extension ChecklistViewController: ItemDetailViewControllerDelegate {
+    func itemDetailViewControllerDidCancel(controller: ItemDetailViewController) {
         dismiss(animated: true, completion: nil)
     }
-    func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ChecklistItem) {
+    func itemDetailViewController(controller: ItemDetailViewController, didFinishAddingItem item: ChecklistItem) {
         dismiss(animated: true, completion: nil)
         checklistitem.append(item)
         tableView.insertRows(at: [IndexPath(item: checklistitem.count-1, section: 0)], with: UITableViewRowAnimation.automatic)
     }
-    func addItemViewController(controller: AddItemViewController, didFinishEditingItem item: ChecklistItem) {
+    func itemDetailViewController(controller: ItemDetailViewController, didFinishEditingItem item: ChecklistItem) {
         dismiss(animated: true, completion: nil)
         print (checklistitem.index(where: { $0 === item }))
         tableView.reloadRows(at : [IndexPath(item: checklistitem.index(where: { $0 === item })!, section : 0)], with: UITableViewRowAnimation.automatic)
