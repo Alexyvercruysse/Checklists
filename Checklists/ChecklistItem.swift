@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ChecklistItem {
+public class ChecklistItem : Equatable {
     var text: String
     var checked: Bool
     
@@ -17,4 +17,12 @@ public class ChecklistItem {
         self.checked = checked
     }
     
+    func toggleChecked (){
+        self.checked = !self.checked
+    }
+    
+}
+
+public func == (lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
+    return (lhs.text == rhs.text)
 }
