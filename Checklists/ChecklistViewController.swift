@@ -11,18 +11,19 @@ import UIKit
 class ChecklistViewController: UITableViewController {
     
     var checklistitem = [ChecklistItem]()
+     var list: Checklist! 
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        // Do any additional setup after loading the view, typically from a nib.
-        checklistitem.append(ChecklistItem(text: "Mettre à jour XCode"))
-        checklistitem.append(ChecklistItem(text: "Devenir un bon codeur"))
-        checklistitem.append(ChecklistItem(text: "Devenir beau"))
-        checklistitem.append(ChecklistItem(text: "Comprendre le swift"))
-        checklistitem.append(ChecklistItem(text: "Rafraichir le PDF"))
-        checklistitem.append(ChecklistItem(text: "Frapper son voisin"))
-        checklistitem.append(ChecklistItem(text: "ETEINDRE CE MAC DE *****"))
-        checklistitem.append(ChecklistItem(text: "Empecher le voisin de copier", checked: true))
+        super.viewDidLoad()
+        //loadChecklistItems()
+        checklistitem = list.items
+        if let checkList = self.list {
+            title = checkList.name
+        }
+    }
+    
+    override func awakeFromNib() {
+        //loadChecklistItems()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -54,12 +55,14 @@ class ChecklistViewController: UITableViewController {
             alert.addAction(UIAlertAction(title: "YES", style: UIAlertActionStyle.destructive, handler: { action in
                 self.checklistitem.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+                self.saveChecklistItems()
             }))
             self.present(alert, animated: true, completion: nil)
         }
         else {
             self.checklistitem.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+            saveChecklistItems()
         }
         
     }
@@ -74,7 +77,7 @@ class ChecklistViewController: UITableViewController {
     }
     
     func configureTextFor(cell: UITableViewCell, withItem item: ChecklistItem){
-        (cell.viewWithTag(2) as? UILabel)?.text = item.text
+        (cell.viewWithTag(2) as? UILabel)?.text = item.text as String
     }
 
     @IBAction func addDummyTodo(_ sender: AnyObject) {
@@ -98,6 +101,27 @@ class ChecklistViewController: UITableViewController {
             vc.itemToEdit = checklistitem[(tableView.indexPath(for: (sender as! UITableViewCell))?.row)!]
         }
     }
+    
+    func saveChecklistItems() {
+        NSKeyedArchiver.archiveRootObject(checklistitem, toFile: dataFileUrl().path)
+    }
+    
+    func loadChecklistItems() {
+        checklistitem = NSKeyedUnarchiver.unarchiveObject(withFile: dataFileUrl().path) as! [ChecklistItem]
+    }
+    
+    
+    // MARK: FILE
+    func documentDirectory() -> URL{
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+    }
+    
+    func dataFileUrl() -> URL{
+        return documentDirectory().appendingPathComponent("Checklists.plist")
+    }
+    
+    
 }
 
 
@@ -111,13 +135,14 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
         dismiss(animated: true, completion: nil)
         checklistitem.append(item)
         tableView.insertRows(at: [IndexPath(item: checklistitem.count-1, section: 0)], with: UITableViewRowAnimation.automatic)
+        saveChecklistItems()
     }
     func itemDetailViewController(controller: ItemDetailViewController, didFinishEditingItem item: ChecklistItem) {
         dismiss(animated: true, completion: nil)
         print (checklistitem.index(where: { $0 === item }))
         tableView.reloadRows(at : [IndexPath(item: checklistitem.index(where: { $0 === item })!, section : 0)], with: UITableViewRowAnimation.automatic)
         
-        
+        saveChecklistItems()
     }
 
 }

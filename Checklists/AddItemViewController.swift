@@ -16,7 +16,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         if itemToEdit != nil {
-            textField.text = itemToEdit?.text
+            textField.text = itemToEdit?.text as String?
         }
         else {
             print("ADD")
@@ -26,7 +26,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
 
     @IBAction func done(){
         if itemToEdit != nil {
-            itemToEdit?.text = textField.text!
+            itemToEdit?.text = textField.text! as NSString
             delegate?.itemDetailViewController(controller: self, didFinishEditingItem: itemToEdit!)
         }
         else {
